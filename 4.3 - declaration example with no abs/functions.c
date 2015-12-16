@@ -3,7 +3,6 @@
 #include <string.h> /* strlen. */
 #include <syslog.h>
 #include "header.h"
-#include "logger.h"
 
 int indent = 0;
 /**
