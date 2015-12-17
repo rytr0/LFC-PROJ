@@ -320,24 +320,16 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
  }
  //==========================
  int addInt(int n, int m) {
-   write_log(NULL,"addInt");
-
      return n+m;
  }
  int subInt(int n, int m) {
-   write_log(NULL,"subInt");
-
      return n-m;
  }
  int mulInt(int n, int m) {
-   write_log(NULL,"mulInt");
-
      return n*m;
  }
  //unexpected ceiling
  int divInt(int n, int m) {
-   write_log(NULL,"divInt");
-
      return n/m;
  }
  //==========================
@@ -372,44 +364,30 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
      return (n!=m)?true:false;
  }
  bool eqFloat(float n, float m) {
-   write_log(NULL,"eqFloat");
-
      return (n==m)?true:false;
  }
  //==========================
 
  bool ltInt(int n, int m) {
-   write_log(NULL,"ltInt");
-
      return (n<m)?true:false;
  }
  bool gtInt(int n, int m) {
-   write_log(NULL,"gtInt");
-
      return (n>m)?true:false;
  }
  bool geInt(int n, int m) {
-   write_log(NULL,"geInt");
-
      return (n>=m)?true:false;
  }
  bool leInt(int n, int m) {
-   write_log(NULL,"leInt");
-
      return (n<=m)?true:false;
  }
  bool neInt(int n, int m) {
-   write_log(NULL,"neInt");
-
      return (n!=m)?true:false;
  }
  bool eqInt(int n, int m) {
-     write_log(NULL,"eqInt");
-     return (n==m)?true:false;
+    return (n==m)?true:false;
  }
  //==========================
  bool eqBool(bool n, bool m) {
-    write_log(NULL,"eqBool");
 
      return (n==m)?true:false;
  }
@@ -575,7 +553,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
          break;
        case EQ :
         {
-          write_log(NULL,"EQUALS");
           switch (e1.b.type) {
            case basic_int_value:funBoolIntPrt = eqInt;break;
            case basic_float_value:funBoolFloatPrt = eqFloat;break;
