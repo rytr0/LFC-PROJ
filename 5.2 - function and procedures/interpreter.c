@@ -84,7 +84,6 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
             write_log(NULL,"è una procedura/funzione");
             //TODO check if this is a function or a procedure
             res = r_assignment(r,expr.op[1], symTable,routineList);
-            //printf("after r_assignment r->returnValue %p\n", r->returnValue);
           }
           return res;
           break;
@@ -283,7 +282,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
 
  void printData(data d){
   write_log(NULL,"printData init");
-  //printf("data d %d\n", d.b.i);
   switch (d.type) {
     case basic_dataType:
         {
@@ -863,13 +861,7 @@ data r_assignment(routine * r, treeNode * expr, symrec ** symTable,list * routin
 
   data e = eval(expr, symTable,routineList);
   //typechecking happens here
-  //control evaluate the given expression and check if has the same type of r return type
-  //questo devi farlo diventare un data * con malloc.. se no alla chiusura dello stack
-  //se lo mangia via lo shift dello stack.. mentre se è un data * mi rimane in memoria
   r->returnValue = dataToDataPointer(e);
-  //printf("&e %p\n", &e);
-  //printf("ret %p\n", r->returnValue);
-  //printf("%d\n", e.b.i);
   data res;
   res.type = no_op; //is the last action that should be executed in the program
   return res;
@@ -996,8 +988,6 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
   }else{
     //qui cerca nella routine, nel suo return value il valore, puliscilo e resituicilo
     res = *r->returnValue;
-    //printf("in return * %p\n", r->returnValue);
-    //printf("%d\n", res.b.i);
     write_log(NULL, "return value from function");
     r->returnValue = NULL;
   }
