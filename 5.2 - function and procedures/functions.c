@@ -92,7 +92,7 @@ treeNode * opr(int oper, int nops, ...){
 treeNode * fpCall(const char * name , actual * args){
   treeNode *node = init();
   routineNode rtn;
-  rtn.name = malloc(strlen(name));
+  rtn.name = malloc(strlen(name)+1);
   strcpy(rtn.name, name);
   rtn.args = args;
   node->type = routine_type;
@@ -149,7 +149,7 @@ treeNode * varDec(char * name, bool constant, type * dataType, ...){
   va_list ap;
   treeNode *node = init();
   node->type = identifier_declaration;
-  node->value.dec.name = malloc(strlen(name));
+  node->value.dec.name = malloc(strlen(name)+1);
   strcpy(node->value.dec.name, name);
   node->value.dec.isCostant = constant;
   node->value.dec.t = dataType;

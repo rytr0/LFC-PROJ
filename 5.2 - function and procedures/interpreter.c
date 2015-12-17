@@ -42,8 +42,6 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
   switch (expr.operator) {
     case SEMICOLON:
       {
-        write_log(NULL,"statement ;");
-
         //c'è sempre uno statement da valutare
         //valuto il primo
         eval(expr.op[0],symTable,routineList);
@@ -55,8 +53,6 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
       break;
     case PRINT:
         { //statement
-          write_log(NULL,"print");
-
           data e = eval(expr.op[0], symTable,routineList);
           printData(e);
           res.type = no_op;
@@ -267,7 +263,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
       return eval_routine(p->value.routine,symTable,routineList);
       break;
     case identifier_declaration:
-        //write_log(NULL,"calling eval_identifier_declaration");
         return eval_identifier_declaration(p->value.dec,symTable,routineList);
       break;
     default:
@@ -924,6 +919,8 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
    //qui fai il bind tra parametri e argomenti, mettendoli nella symbol TABLE
    // da ripassare a tutta la funzione di eval, usando il nodo expr come funzione di partenza
    symrec * rSymrec;
+   rSymrec = NULL;
+
    for(int i = 0; i< flen; i++){
      form * f = getFormAtIndex(i,forms);
      if(f == NULL){

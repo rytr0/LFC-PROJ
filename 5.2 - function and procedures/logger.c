@@ -46,8 +46,8 @@ void write_log(char * nome_log, char * buffer) {
     }
     //const char * dirpath = "/var/log/airport";
     //const char * temp = "/var/log/airport/";
-    const char * dirpath = "/Users/Lorenzo/Documents/lavoro unitn/LFC/exercizes/LFC_unversioned/5.2 - function and procedures/log";
-    const char * temp = "/Users/Lorenzo/Documents/lavoro unitn/LFC/exercizes/LFC_unversioned/5.2 - function and procedures/log/";
+    const char * dirpath = "/Users/Lorenzo/Documents/lavoro unitn/LFC/exercizes/LFC2015-2016/5.2 - function and procedures/log";
+    const char * temp = "/Users/Lorenzo/Documents/lavoro unitn/LFC/exercizes/LFC2015-2016/5.2 - function and procedures/log/";
     //salvo il percorso attuale
     char * path = NULL;
     path = getcwd(NULL, 0);
@@ -65,7 +65,7 @@ void write_log(char * nome_log, char * buffer) {
 
     //mi sposto nel percorso richiesto
     if (chdir(dirpath) == -1) {
-        if (mkdir("/Users/Lorenzo/Documents/lavoro unitn/LFC/exercizes/LFC_unversioned/5.2 - function and procedures/log", S_IRWXU) == -1) {
+        if (mkdir("/Users/Lorenzo/Documents/lavoro unitn/LFC/exercizes/LFC2015-2016/5.2 - function and procedures/log", S_IRWXU) == -1) {
             printf("errore creazione cartella, try with sudo\n");
             exit(-1);
         } else {
