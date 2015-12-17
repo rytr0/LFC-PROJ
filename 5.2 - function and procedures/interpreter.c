@@ -60,7 +60,7 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
         }
       break;
     case EQUALS: //statement
-          write_log(NULL,"equals");
+        {
           symrec * s = getSymbolFromIdentifier(expr.op[0]->value.id,symTable);
           //check if the variable is function
           routine * r = getRoutine(expr.op[0]->value.id.name, routineList);
@@ -71,16 +71,14 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
           //else
           data res;
           if(s!=NULL){
-            write_log(NULL,"è una variable");
-
             res = assignment(s,expr.op[1],symTable,routineList);
           }
           if(r!=NULL){
-            write_log(NULL,"è una procedura/funzione");
             //TODO check if this is a function or a procedure
             res = r_assignment(r,expr.op[1], symTable,routineList);
           }
           return res;
+        }
           break;
     case WHILE: //statement
         { // in ro con ambiente delta valuto <while e to c, omega> --> c <c; while e do c, omega> solo se in ro con ambiente delta posso valutare e a boleano vedi pag 54 semantica opearzionale
@@ -248,15 +246,12 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
   }
   switch (p->type) {
     case const_type:
-      //write_log(NULL,"calling eval_const");
       return eval_constants(p->value.con, symTable);
       break;
     case identifier_type:
-      //write_log(NULL,"calling eval_identifier");
       return eval_identifier(p->value.id,symTable,routineList);
       break;
     case expression_type:
-      //write_log(NULL,"calling eval_expr");
       return eval_expr(p->value.expr,symTable,routineList);
       break;
     case routine_type:
@@ -275,7 +270,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
 
 
  void printData(data d){
-  write_log(NULL,"printData init");
   switch (d.type) {
     case basic_dataType:
         {
@@ -577,7 +571,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
       case basic_int_value:
         {
           if(funIntPtr!=NULL){
-            write_log(NULL,"evaluating OPERATion..");
 
             if(oper == EQUALS){
               //il risultato è booleano
@@ -589,7 +582,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
             }
           }else if(funBoolIntPrt!=NULL){
             //evaluating something like int < int or int == int
-            write_log(NULL,"evaluating boolean comparison..");
             res.b.type = basic_boolean_value;
             res.b.b = funBoolIntPrt(e1.b.i, e2.b.i);
           }else{
@@ -668,13 +660,11 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
  }
 
 data eval_identifier_declaration(declarationNode decl, symrec ** symbolTable,list * routineList){
-  write_log(NULL,"adding identifier");
     data res;
     res.type = no_op;
     symrec * s;
     s=getSym(decl.name, *symbolTable);
     if(s==0){
-      write_log(NULL,logString("symbol %s not found", decl.name));
       s = createSym(decl.name, symbolTable);
       //insert
       switch (decl.t->dt) {
@@ -842,7 +832,6 @@ data r_assignment(routine * r, treeNode * expr, symrec ** symTable,list * routin
 prende in input l'identifier node e restituisce il suo valore
 */
 data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * routineList){
-  write_log(NULL,"eval_identifier");
   //TODO: place a check for not initialized values
   data res;
   symrec * s = getSym(identifierNode.name, *symbolTable);
@@ -893,8 +882,6 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
 }
 
  data eval_routine(routineNode rout, symrec ** symTable, list * routineList){
-   write_log(NULL, "eval_routine");
-
    data res;
    //recupera la routine e controlla se esiste
    routine * r = getRoutine(rout.name, routineList);
@@ -941,24 +928,19 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
      //cerca la var appena inserita e fai l'assignement
      identifier id; id.name = malloc(strlen(f->name)+1);
      strcpy(id.name,f->name);
-     write_log(NULL, "before symbol from identifier in function");
      symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
-     write_log(NULL, "before assignement in function");
      //eval expr in current env, then assign it
      data e = eval(a->expr, symTable,routineList);
      spec_assignment(tmp,e, &rSymrec, routineList);
    }
   //eventually with return res = eval...
   eval(r->statementList, &rSymrec,routineList);
-  write_log(NULL, "function executed");
 
   if(r->type == procedure){
-    write_log(NULL, "function was a procedure");
     res.type = no_op;
   }else{
     //qui cerca nella routine, nel suo return value il valore, puliscilo e resituicilo
     res = *r->returnValue;
-    write_log(NULL, "return value from function");
     r->returnValue = NULL;
   }
   return res;
