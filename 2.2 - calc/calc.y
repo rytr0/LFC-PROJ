@@ -51,7 +51,7 @@
 %%
 
 program:
-        function                   {exit(0);}
+        function                   {ex(NULL); exit(0);}
         ;
 
 function:
