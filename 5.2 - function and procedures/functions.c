@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include "header.h"
+#include "logger.h"
 
 extern symrec * table;
 void yyerror(char * );
@@ -192,6 +193,7 @@ type * arrayDec(int size, type * t, basicType bt){
 }
 
 type * basicDec(basicType bt){
+  //write_log(NULL,"basic dec");
   type * res = malloc(sizeof(type));
   res->size = 0;
   res->dt = basic_dataType;
@@ -270,9 +272,11 @@ routine * newRoutine(const char * name,form * formals, treeNode * statements, ..
   //switch (t->dataType) etc etc
 
   if(t == NULL || t->typeValue.bt == undef){
+    //write_log(NULL,"type * is undefined-->PROCEDURE");
     res->bt = undef;
     res->type = procedure;
   }else{
+    //write_log(NULL,"type * is defined --> FUNCTION");
 
     res->type = function;
     res->bt = t->typeValue.bt;
@@ -345,13 +349,16 @@ int formLength(form * forms){
 
 routine * getRoutine(const char * name, list * routineList){
   if(routineList == NULL){
+    write_log(NULL,"routineList is NULL");
     return NULL;
   }
   //TODO typecheking about routineList being really a list of type routine
   routine *ptr;
   list * tmp;
+  //write_log(NULL,logString("looking for %s",name));
   for (tmp = routineList; tmp!=NULL; tmp=tmp->next){
     ptr = tmp->r;
+    //write_log(NULL,logString("name found %s",ptr->name));
     if(strcmp(ptr->name, name)==0){
       return ptr;
     }
