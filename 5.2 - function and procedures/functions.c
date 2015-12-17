@@ -3,7 +3,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include "header.h"
-#include "logger.h"
 
 extern symrec * table;
 void yyerror(char * );
