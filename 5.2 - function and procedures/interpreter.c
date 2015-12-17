@@ -13,7 +13,6 @@ void executeProgram(program * program, symrec ** symTable, list * routineList){
 }
 
 data eval_constants(constant c, symrec ** symTable){
-  write_log(NULL,"evaluating const");
   data res;
   basic b;
   b.type=c.type;
@@ -731,7 +730,6 @@ data eval_identifier_declaration(declarationNode decl, symrec ** symbolTable,lis
 }
 
 data spec_assignment(symrec * variable, data e, symrec ** symTable ,list * routineList){
-  write_log(NULL,"spec assignment");
   if(variable == NULL){
     yyerror("variable not found");
     exit(NO_SUCH_VARIABLE);
