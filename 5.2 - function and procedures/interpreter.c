@@ -41,6 +41,7 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
   switch (expr.operator) {
     case SEMICOLON:
       {
+
         //c'è sempre uno statement da valutare
         //valuto il primo
         eval(expr.op[0],symTable,routineList);
@@ -60,24 +61,26 @@ data eval_expr(node expr, symrec ** symTable,list * routineList){
         }
       break;
     case EQUALS: //statement
-          symrec * s = getSymbolFromIdentifier(expr.op[0]->value.id,symTable);
-          //check if the variable is function
-          routine * r = getRoutine(expr.op[0]->value.id.name, routineList);
-          if(s == NULL && r == NULL){
-            yyerror("during assignment found unknown variable or function");
-            exit(NO_SUCH_VARIABLE);
-          }
-          //else
-          data res;
-          if(s!=NULL){
+          {
+            symrec * s = getSymbolFromIdentifier(expr.op[0]->value.id,symTable);
+            //check if the variable is function
+            routine * r = getRoutine(expr.op[0]->value.id.name, routineList);
+            if(s == NULL && r == NULL){
+              yyerror("during assignment found unknown variable or function");
+              exit(NO_SUCH_VARIABLE);
+            }
+            //else
+            data res;
+            if(s!=NULL){
 
-            res = assignment(s,expr.op[1],symTable,routineList);
+              res = assignment(s,expr.op[1],symTable,routineList);
+            }
+            if(r!=NULL){
+              //TODO check if this is a function or a procedure
+              res = r_assignment(r,expr.op[1], symTable,routineList);
+            }
+            return res;
           }
-          if(r!=NULL){
-            //TODO check if this is a function or a procedure
-            res = r_assignment(r,expr.op[1], symTable,routineList);
-          }
-          return res;
           break;
     case WHILE: //statement
         { // in ro con ambiente delta valuto <while e to c, omega> --> c <c; while e do c, omega> solo se in ro con ambiente delta posso valutare e a boleano vedi pag 54 semantica opearzionale
@@ -307,15 +310,12 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
  }
  //==========================
  int addInt(int n, int m) {
-
      return n+m;
  }
  int subInt(int n, int m) {
-
      return n-m;
  }
  int mulInt(int n, int m) {
-
      return n*m;
  }
  //unexpected ceiling
@@ -354,29 +354,23 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
      return (n!=m)?true:false;
  }
  bool eqFloat(float n, float m) {
-
      return (n==m)?true:false;
  }
  //==========================
 
  bool ltInt(int n, int m) {
-
      return (n<m)?true:false;
  }
  bool gtInt(int n, int m) {
-
      return (n>m)?true:false;
  }
  bool geInt(int n, int m) {
-
      return (n>=m)?true:false;
  }
  bool leInt(int n, int m) {
-
      return (n<=m)?true:false;
  }
  bool neInt(int n, int m) {
-
      return (n!=m)?true:false;
  }
  bool eqInt(int n, int m) {
@@ -384,7 +378,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
  }
  //==========================
  bool eqBool(bool n, bool m) {
-
      return (n==m)?true:false;
  }
  //We assume here typechecking has already happened
@@ -579,7 +572,6 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
       case basic_int_value:
         {
           if(funIntPtr!=NULL){
-
             if(oper == EQUALS){
               //il risultato è booleano
               res.b.type = basic_boolean_value;
@@ -833,9 +825,6 @@ data r_assignment(routine * r, treeNode * expr, symrec ** symTable,list * routin
   return res;
 }
 
-
-
-
 /**
 prende in input l'identifier node e restituisce il suo valore
 */
@@ -890,7 +879,6 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
 }
 
  data eval_routine(routineNode rout, symrec ** symTable, list * routineList){
-
    data res;
    //recupera la routine e controlla se esiste
    routine * r = getRoutine(rout.name, routineList);
@@ -942,7 +930,6 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
    }
   //eventually with return res = eval...
   eval(r->statementList, &rSymrec,routineList);
-
   if(r->type == procedure){
     res.type = no_op;
   }else{
