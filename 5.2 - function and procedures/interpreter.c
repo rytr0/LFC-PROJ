@@ -535,7 +535,7 @@ data eval(treeNode *p, symrec ** symTable,list * routineList) {
          }
          break;
        case NE :
-          {write_log(NULL,"NOT EQUALS");
+          {
            switch (e1.b.type) {
              case basic_int_value:funBoolIntPrt = neInt;break;
              case basic_float_value:funBoolFloatPrt = neFloat;break;
@@ -779,7 +779,6 @@ return res;
 
 
 data assignment(symrec * variable, treeNode * expr, symrec ** table, list * routineList){
-    write_log(NULL,"assignment");
     if(variable == NULL){
       yyerror("variable not found");
       exit(NO_SUCH_VARIABLE);
@@ -830,7 +829,6 @@ data assignment(symrec * variable, treeNode * expr, symrec ** table, list * rout
 }
 //changes the value pointed by r return value
 data r_assignment(routine * r, treeNode * expr, symrec ** symTable,list * routineList){
-  write_log(NULL,"assignment");
   if(r == NULL){
     yyerror("routine not found");
     exit(NO_SUCH_VARIABLE);
