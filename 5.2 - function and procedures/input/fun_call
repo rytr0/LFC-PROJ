@@ -16,4 +16,5 @@ main{
   print b;
   print eval add(a,b);
   print eval minus(c,a);
+  print eval minus(c,eval add(a,b));
 }
