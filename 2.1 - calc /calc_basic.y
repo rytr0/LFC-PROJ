@@ -31,7 +31,7 @@
  */
 
 program:
-        expr '\n'
+        expr '\n'                 {printf("%d\n", $1);}
         | 
         ;
 
