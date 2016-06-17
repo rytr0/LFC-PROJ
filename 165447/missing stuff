@@ -1,0 +1,8 @@
+	missing implementation:
+- free every node
+- arrays
+- freeing statements variables
+--(enumerate statement blocks and assign it to the symrec while allocating them)
+-- after block execution remove the varibale
+-- this implies to change the symrec struct to have a pointer to previous and next
+- check if is possibile to do recursive function calls
