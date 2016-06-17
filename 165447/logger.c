@@ -1,3 +1,4 @@
+//165447
 #include <stdio.h>//standard input output ANSI C
 #include <stdlib.h>//standar libraries ANSI C
 #include <string.h>//libreria per manipolare le stringhe ANSI C
