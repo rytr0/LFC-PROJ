@@ -86,7 +86,7 @@ typedef struct symrec
 
     bool b;
     complex c;
-  }value;
+  }*value;
 	struct symrec *next;
 } symrec;
 
@@ -166,6 +166,7 @@ type * basicDec(basicType);
 
 typedef struct form{
     char * name;
+    bool byref;
     dataType type;
     union{
       basicType bt;
@@ -175,7 +176,7 @@ typedef struct form{
 }form;
 
 //adesso usato solamente per il basic type..
-form * newParam(const char * , dataType ,...);
+form * newParam(const char * , bool byref, dataType ,...);
 form * formList(form * , form ** );
 int formLength(form *);
 void printFormList(form * );

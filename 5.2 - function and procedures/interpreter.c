@@ -679,14 +679,14 @@ data eval_identifier_declaration(declarationNode decl, symrec ** symbolTable,lis
               //TODO typechecking tra il valore dichiarato e quello di e
               switch (decl.t->typeValue.bt) {
                 case basic_int_value:
-                  s->value.i = e.b.i;
+                  (*s->value).i = e.b.i;
                   break;
                 case basic_float_value:
                   yyerror("not implemented yet");
                   exit(NOT_IMPLEMENTED_YET);
                   break;
                 case basic_boolean_value:
-                  s->value.i = e.b.i;
+                  (*s->value).i = e.b.i;
                   break;
                 case undef:
                 default:
@@ -726,10 +726,10 @@ data spec_assignment(symrec * variable, data e, symrec ** symTable ,list * routi
       {
         switch (variable->bType) {
           case basic_boolean_value:
-            variable->value.b = e.b.b;
+            (*variable->value).b = e.b.b;
             break;
           case basic_int_value:
-            variable->value.i = e.b.i;
+            (*variable->value).i = e.b.i;
             break;
           case basic_float_value:
             yyerror("basic_float_value unmanaged type..");
@@ -846,10 +846,10 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
         b.type = s->bType;
         switch (s->bType) {
           case basic_boolean_value:
-            b.b = s->value.b;
+            b.b = (*s->value).b;
             break;
           case basic_int_value:
-            b.i = s->value.i;
+            b.i = (*s->value).i;
             break;
           case basic_float_value:
             //b.f = s->value.f;
@@ -927,10 +927,64 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
      //cerca la var appena inserita e fai l'assignement
      identifier id; id.name = malloc(strlen(f->name)+1);
      strcpy(id.name,f->name);
-     symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
-     //eval expr in current env, then assign it
-     data e = eval(a->expr, symTable,routineList);
-     spec_assignment(tmp,e, &rSymrec, routineList);
+
+
+     if (f->byref){
+       printf("ref");
+       if (a->expr->type != identifier_type){
+         yyerror("incompatible arg for pass by ref");
+         exit(ARGS_LIST_EXCEEDED);
+       }
+      symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
+      symrec * tmp2 = getSymbolFromIdentifier(a->expr->value.id, symTable);
+      tmp->value = tmp2->value;
+
+    //    symrec *ptr = rSymrec;
+    //    printf("ONE.");
+    //    while(ptr->next != NULL){
+    //      ptr = ptr->next;
+    //      printf("TWO.");
+    //    }
+
+
+      //  symrec * s;
+      //  s=getSym(a->expr->value.id.name, rSymrec);
+      //  if(s==0){
+      //    s = createSym(a->expr->value.id.name, &rSymrec);
+      //    printf("CREATED.");
+       //
+      //  }else{
+      //    //TODO: provide concat to write out variable name
+      //    yyerror("variable name already in use..");
+      //    exit(NAME_ALREADY_IN_USE);
+      //  }
+
+
+      //  symrec *s = getSymbolFromIdentifier(a->expr->value.id, symTable);
+      //  s-> next = rSymrec;
+      //  rSymrec = s;
+
+
+      // //  symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
+      // symrec * tmp3 = getSymbolFromIdentifier(id,&rSymrec);
+      // printf("%s.", tmp3->name);
+      // symrec * tmp2 = getSymbolFromIdentifier(a->expr->value.id, symTable);
+      // (tmp3->value) = tmp2 -> value;
+      //
+      // //  tmp->value = a->expr;
+      // //  spec_assignment(tmp,a->expr, &rSymrec, routineList);
+
+     } else
+      {
+        printf("val");
+       //eval expr in current env, then assign it
+       symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
+       data e = eval(a->expr, symTable,routineList);
+       spec_assignment(tmp,e, &rSymrec, routineList);
+     }
+
+    //  printf("%s", );
+
    }
   //eventually with return res = eval...
   eval(r->statementList, &rSymrec,routineList);

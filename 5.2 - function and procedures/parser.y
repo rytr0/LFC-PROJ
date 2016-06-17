@@ -37,7 +37,7 @@
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
 %left EQUALS
-%right UMINUS
+%right UMINUS BYREF
 %nonassoc RCURLY LCURLY COMMA SEMICOLON MAIN RBRACK LBRACK EVAL LP RP
 
 %union {
@@ -146,7 +146,8 @@ form_list:
         param                                                                   {$$=$1;}
         | form COMMA param                                                      {$$=formList($3,&$1);}
         ;
-param:  B VARIABLE                                                              {$$ = newParam($2->name,basic_dataType,$1);}
+param:  B VARIABLE                                                              {$$ = newParam($2->name, false, basic_dataType,$1);}
+        | BYREF B VARIABLE                                                      {$$ = newParam($3->name, true, basic_dataType,$2);}
         ;
 opt_actual_expr:
         /*empty*/                                                               {$$ = NULL;}

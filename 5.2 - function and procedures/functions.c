@@ -121,6 +121,7 @@ symrec * createSym(char const * varName, symrec ** symbolTable){
 
  symrec * putSym(char const * identifier, symrec ** symbolTable){
    symrec *ptr = malloc (sizeof (symrec));
+   (ptr->value) = malloc(sizeof(int));
    ptr->name = (char *) malloc (strlen (identifier) + 1);
    strcpy (ptr->name,identifier);
 
@@ -222,9 +223,10 @@ form * formList(form * new, form ** list){
 }
 
 //implemented considering only basic types
-form * newParam(const char * paramName, dataType dt, ...){
+form * newParam(const char * paramName, bool byref, dataType dt, ...){
   form * res = malloc(sizeof(form));
   res->name = malloc(strlen(paramName)+1);
+  res->byref = byref;
   strcpy(res->name, paramName);
   res->type = dt;
   va_list ap;

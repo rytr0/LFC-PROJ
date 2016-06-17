@@ -11,7 +11,7 @@
 %}
 
 %%
-
+"byRef"                                                                   return BYREF;
 ">="                                                                      return GE;
 "<="                                                                      return LE;
 "=="                                                                      return EQ;
