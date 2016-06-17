@@ -1,4 +1,0 @@
-record { int ciao;} recCiao;
-{
-	print recCiao.ciao;
-}

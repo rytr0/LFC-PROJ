@@ -1,6 +1,0 @@
-int ciao;
-{
-	ciao = 2234;
-	print ciao;
-
-}

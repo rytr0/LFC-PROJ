@@ -1,4 +1,0 @@
-record { int tony;} stark;
-{
-	print stark.ironman;
-}

@@ -930,54 +930,16 @@ data eval_identifier(identifier identifierNode, symrec ** symbolTable,list * rou
 
 
      if (f->byref){
-       printf("ref");
        if (a->expr->type != identifier_type){
          yyerror("incompatible arg for pass by ref");
          exit(ARGS_LIST_EXCEEDED);
        }
-      symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
-      symrec * tmp2 = getSymbolFromIdentifier(a->expr->value.id, symTable);
-      tmp->value = tmp2->value;
 
-    //    symrec *ptr = rSymrec;
-    //    printf("ONE.");
-    //    while(ptr->next != NULL){
-    //      ptr = ptr->next;
-    //      printf("TWO.");
-    //    }
-
-
-      //  symrec * s;
-      //  s=getSym(a->expr->value.id.name, rSymrec);
-      //  if(s==0){
-      //    s = createSym(a->expr->value.id.name, &rSymrec);
-      //    printf("CREATED.");
-       //
-      //  }else{
-      //    //TODO: provide concat to write out variable name
-      //    yyerror("variable name already in use..");
-      //    exit(NAME_ALREADY_IN_USE);
-      //  }
-
-
-      //  symrec *s = getSymbolFromIdentifier(a->expr->value.id, symTable);
-      //  s-> next = rSymrec;
-      //  rSymrec = s;
-
-
-      // //  symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
-      // symrec * tmp3 = getSymbolFromIdentifier(id,&rSymrec);
-      // printf("%s.", tmp3->name);
-      // symrec * tmp2 = getSymbolFromIdentifier(a->expr->value.id, symTable);
-      // (tmp3->value) = tmp2 -> value;
-      //
-      // //  tmp->value = a->expr;
-      // //  spec_assignment(tmp,a->expr, &rSymrec, routineList);
-
-     } else
-      {
-        printf("val");
-       //eval expr in current env, then assign it
+       symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
+       symrec * tmp2 = getSymbolFromIdentifier(a->expr->value.id, symTable);
+       tmp->value = tmp2->value;
+     } else {
+        //eval expr in current env, then assign it
        symrec * tmp = getSymbolFromIdentifier(id,&rSymrec);
        data e = eval(a->expr, symTable,routineList);
        spec_assignment(tmp,e, &rSymrec, routineList);

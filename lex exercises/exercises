@@ -1,8 +1,0 @@
-ex 1: contare i numeri INTERI all'interno di un file
-ex 2: contare i numeri REALI all'interno di un file
-ex 3: mettere assieme ex1 ed ex2, contare separatamente reali e interi
-ex 4: sommare tutti gli interi trovati nel file di input
-ex 5: leggere una lettera singola e stampare il suo valore e il suo corrispondente intero
-ex 6: cifrario (semplificato) ogni lettera della sequenza in input diventa la lettera che si trova esattamente 3 posizioni dopo
-ex 7: cifrario, match di tutte le lettere, maiuscole e minuscole con wrap al raggiungimento della lettera Z o z
-ex 8: sommate i numeri che trovate nel file di input in codifica romana, non vengono considerati i casi come IV (4): versione semplificata -> consideriamo solo i casi di base I, V, L, C etc etc

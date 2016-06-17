@@ -1,5 +1,0 @@
-record { int ciao; int casper; int ciccio; int puzza; int molla; } recCiao; 
-record { int cDoyle; int sHolmes; int jWatson; int drHouse; int missMarble; } lmao;
-{
-	print ciao;	
-}

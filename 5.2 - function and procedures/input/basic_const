@@ -1,5 +1,0 @@
-main{
-
-  int CONST y = 2;
-  int x;
-}

@@ -1,6 +1,0 @@
-record {int casper; int ciccio; int puzza; int molla; } fantasmi; int conanDoyle;
-{
-	print fantasmi.ciccio;
-	print conanDoyle;	
-	print ciao;	
-}

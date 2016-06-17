@@ -1,9 +1,0 @@
-ex1 ) input: 1 file, output uguale all'input ma
-i numeri devono essere aumentati di 3 es 7-->10
-solo se sono divisibili per 7
-
-ex2)matchare le stringhe tali che possano
-contenere delle stringhe a loro volta
-
-ex3)matchare il contenuto di un href
-dentro il tag anchor del html

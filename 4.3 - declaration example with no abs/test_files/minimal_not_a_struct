@@ -1,4 +1,0 @@
-int stark;
-{
-	print stark.ciao;
-}
